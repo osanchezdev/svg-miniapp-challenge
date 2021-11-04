@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import SvgResult from './SvgResult/SvgResult';
 import SvgControls from './SvgControls/SvgControls';
 import SvgThumbnail from './SvgThumbnail/SvgThumbnail';

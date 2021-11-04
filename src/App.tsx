@@ -1,24 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { FileContext } from './context/fileContext';
 import Upload from './components/global/Upload/Upload';
 import Preview from './components/Preview/Preview';
 
 interface Props {}
 
 const App = (props: Props) => {
-  const [fileLoaded, setFileLoaded] = useState<boolean>(false);
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('handleInputChange');
-    setFileLoaded(true);
-  };
+  const { isFileLoaded, onFileChange } = useContext(FileContext);
+
   return (
     <div className="app__wrapper">
-      {fileLoaded ? (
+      {isFileLoaded ? (
         <div className="app__preview__wrapper">
           <Preview />
         </div>
       ) : (
         <div className="app__upload__wrapper">
-          <Upload id="svg-input" handleChange={handleInputChange} />
+          <Upload id="svg-input" handleChange={onFileChange} />
         </div>
       )}
     </div>
