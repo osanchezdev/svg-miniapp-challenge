@@ -1,4 +1,6 @@
 import React, { ChangeEvent, createContext, useState } from 'react';
+import { useContext } from 'react';
+import { SvgContext } from './svgContext';
 
 type FileState = {
   isFileLoaded: boolean;
@@ -21,6 +23,8 @@ interface FileProviderProps {
 }
 
 const FileProvider = ({ children }: FileProviderProps) => {
+  const { setSvgContent } = useContext(SvgContext);
+
   const [isFileLoaded, setIsFileLoaded] = useState<boolean>(false);
   const [fileDataURL, setFileDataURL] = useState<string>('');
   const [fileContent, setFileContent] = useState<string>('');
@@ -30,6 +34,7 @@ const FileProvider = ({ children }: FileProviderProps) => {
     let textContent: string = `${event?.target?.result}`;
     if (textContent) {
       setFileContent(textContent);
+      setSvgContent && setSvgContent(textContent);
       setIsFileLoaded(true);
     }
   };

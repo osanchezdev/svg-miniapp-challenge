@@ -9,7 +9,7 @@ interface RangeI {
   min?: number;
   max?: number;
   currentValue?: number;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Range = ({

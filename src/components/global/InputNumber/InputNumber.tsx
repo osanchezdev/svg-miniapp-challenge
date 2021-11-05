@@ -7,7 +7,7 @@ interface InputNumberI {
   label: string;
   placeholder: string;
   currentValue?: number;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const InputNumber = ({

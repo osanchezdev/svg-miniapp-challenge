@@ -1,16 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { SvgContext } from '../../../context/svgContext';
 import InputNumber from '../../global/InputNumber/InputNumber';
 import Range from '../../global/Range/Range';
 
 interface Props {}
 
 const SvgControls = (props: Props) => {
-  const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('e', e.currentTarget.value);
-  };
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('e', e.currentTarget.value);
-  };
+  const { handleFilterChange } = useContext(SvgContext);
+
   return (
     <div className="svg_controls__wrapper">
       <div>
@@ -21,7 +18,7 @@ const SvgControls = (props: Props) => {
           min={0}
           max={1}
           currentValue={0.5}
-          handleChange={handleRangeChange}
+          handleChange={handleFilterChange}
         />
         <Range
           id="rotate"
@@ -30,39 +27,40 @@ const SvgControls = (props: Props) => {
           min={-360}
           max={360}
           currentValue={0}
-          handleChange={handleRangeChange}
+          handleChange={handleFilterChange}
         />
         <Range
           id="scale"
           label="Scale"
           step={0.1}
-          min={1}
+          min={0.1}
+          max={2}
           currentValue={1}
-          handleChange={handleRangeChange}
+          handleChange={handleFilterChange}
         />
         <Range
-          id="traslateX"
-          label="traslateX"
+          id="translateX"
+          label="translateX"
           step={0.1}
-          min={-100}
-          max={100}
+          min={0}
+          max={1000}
           currentValue={0}
-          handleChange={handleRangeChange}
+          handleChange={handleFilterChange}
         />
         <Range
-          id="traslateY"
-          label="traslateY"
+          id="translateY"
+          label="translateY"
           step={0.1}
-          min={-100}
-          max={100}
+          min={0}
+          max={800}
           currentValue={0}
-          handleChange={handleRangeChange}
+          handleChange={handleFilterChange}
         />
         <InputNumber
-          id="bbox-diagonal-filter"
+          id="bboxFilter"
           label="BBox Filter"
           placeholder="0"
-          handleChange={handleInputChange}
+          handleChange={handleFilterChange}
         />
       </div>
     </div>
