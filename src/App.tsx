@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext, useState } from 'react';
+import { FileContext } from './context/fileContext';
+import Upload from './components/global/Upload/Upload';
+import Preview from './components/Preview/Preview';
 
-function App() {
+interface Props {}
+
+const App = (props: Props) => {
+  const { isFileLoaded, onFileChange } = useContext(FileContext);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app__wrapper">
+      {isFileLoaded ? (
+        <div className="app__preview__wrapper">
+          <Preview />
+        </div>
+      ) : (
+        <div className="app__upload__wrapper">
+          <Upload id="svg-input" handleChange={onFileChange} />
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default App;

@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
+import SvgProvider from './context/svgContext';
+import FileProvider from './context/fileContext';
+
+import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <SvgProvider>
+      <FileProvider>
+        <App />
+      </FileProvider>
+    </SvgProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
