@@ -6,9 +6,12 @@
 }
 
 .preview__left-panel {
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid #e1e1e1;
 }
 
 .preview__right-panel {
-  padding: 15px;
+  max-height: 100vh;
+  overflow: hidden;
 }

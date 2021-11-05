@@ -23,9 +23,11 @@ const Range = ({
 }: RangeI) => {
   return (
     <div key={id} className="range__wrapper">
-      <label className="range-label">{`${label}${
-        currentValue ? `: ${currentValue}` : ''
-      }`}</label>
+      <div className="range-label__wrapper">
+        <label className="range-label">{`${label}${
+          currentValue ? `: ${currentValue}` : ''
+        }`}</label>
+      </div>
       <input
         id={id}
         className="range-input"
