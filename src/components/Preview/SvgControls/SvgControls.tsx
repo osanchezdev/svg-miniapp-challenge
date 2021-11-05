@@ -42,7 +42,7 @@ const SvgControls = (props: Props) => {
           id="translateX"
           label="translateX"
           step={0.1}
-          min={0}
+          min={-500}
           max={1000}
           currentValue={0}
           handleChange={handleFilterChange}
@@ -51,8 +51,8 @@ const SvgControls = (props: Props) => {
           id="translateY"
           label="translateY"
           step={0.1}
-          min={0}
-          max={800}
+          min={-500}
+          max={1000}
           currentValue={0}
           handleChange={handleFilterChange}
         />

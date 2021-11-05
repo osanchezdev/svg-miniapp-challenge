@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useEffect } from 'react';
 import { SvgContext } from '../../../context/svgContext';
+import { calculateDiagonal } from '../../../utils';
 
 import './SvgResult.css';
 
@@ -9,34 +10,42 @@ const SvgResult = () => {
 
   useEffect(() => {
     let svgWrapper = document.getElementById('svg-result');
-    if (svgWrapper && svgContent) {
-      svgWrapper.innerHTML = svgContent;
-    }
-  }, [svgContent]);
-
-  useEffect(() => {
-    let xlinkns = 'http://www.w3.org/1999/xlink';
-    let svgWrapper = document.getElementById('svg-result');
-    let svg = svgWrapper?.getElementsByTagName('svg')[0];
-
     if (svgWrapper) {
-      var graphicsEls = svg?.getElementsByTagName('path');
+      if (svgContent) svgWrapper.innerHTML = svgContent;
+      var svg = svgWrapper?.getElementsByTagName('svg')[0];
+      let graphicsEls: any[] = [
+        svg?.getElementsByTagName('path'),
+        svg?.getElementsByTagName('rect'),
+        svg?.getElementsByTagName('circle'),
+        svg?.getElementsByTagName('ellipse'),
+        svg?.getElementsByTagName('polygon'),
+        svg?.getElementsByTagName('polyline'),
+        svg?.getElementsByTagName('line'),
+      ];
 
       if (svg && graphicsEls) {
         for (var i = 0; i < graphicsEls.length; i++) {
-          var element = graphicsEls[i];
+          for (let j = 0; j < graphicsEls[i].length; j++) {
+            let element = graphicsEls[i][j];
+            let { width, height } = element.getBBox();
 
-          element?.setAttribute('opacity', `${filters?.opacity}`);
-          element?.setAttribute(
-            'transform',
-            `rotate(${filters?.rotate}) ` +
-              `scale(${filters?.scale} ${filters?.scale}) ` +
-              `translate(${filters?.translateX} ${filters?.translateY})`
-          );
+            element?.setAttribute('transform-origin', `center center`);
+            element?.setAttribute('opacity', `${filters?.opacity}`);
+            element?.setAttribute(
+              'transform',
+              `rotate(${filters?.rotate}) ` +
+                `scale(${filters?.scale} ${filters?.scale}) ` +
+                `translate(${filters?.translateX} ${filters?.translateY})`
+            );
+
+            if (filters && filters['bboxFilter'])
+              if (calculateDiagonal(width, height) < filters['bboxFilter'])
+                element.remove();
+          }
         }
       }
     }
-  }, [filters]);
+  }, [svgContent, filters]);
 
   return <div id="svg-result" className="svg-result__wrapper"></div>;
 };
